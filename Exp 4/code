@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char op[3];
+
+    printf("Enter any operator: ");
+    scanf("%s", op);
+
+    if (strcmp(op, "+") == 0)
+        printf("Addition operator");
+    else if (strcmp(op, "-") == 0)
+        printf("Subtraction operator");
+    else if (strcmp(op, "*") == 0)
+        printf("Multiplication operator");
+    else if (strcmp(op, "/") == 0)
+        printf("Division operator");
+    else if (strcmp(op, "<=") == 0)
+        printf("Less than or equal");
+    else if (strcmp(op, ">=") == 0)
+        printf("Greater than or equal");
+    else if (strcmp(op, "<") == 0)
+        printf("Less than");
+    else if (strcmp(op, ">") == 0)
+        printf("Greater than");
+    else if (strcmp(op, "==") == 0)
+        printf("Equal to");
+    else
+        printf("Invalid operator");
+
+    return 0;
+}
