@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main()
+{
+    char str[100];
+    char identifiers[20], operators[20];
+    int constants[20];
+    int id = 0, op = 0, con = 0;
+    int i = 0, num;
+
+    printf("Enter the string: ");
+    fgets(str, sizeof(str), stdin);
+
+    while (str[i] != '\0')
+    {
+        // Identifier
+        if (isalpha(str[i]))
+        {
+            identifiers[id++] = str[i];
+            i++;
+        }
+
+        // Constant
+        else if (isdigit(str[i]))
+        {
+            num = 0;
+            while (isdigit(str[i]))
+            {
+                num = num * 10 + (str[i] - '0');
+                i++;
+            }
+            constants[con++] = num;
+        }
+
+        // Operator
+        else if (str[i] == '+' || str[i] == '-' || str[i] == '*' ||
+                 str[i] == '/' || str[i] == '=')
+        {
+            operators[op++] = str[i];
+            i++;
+        }
+        else
+        {
+            i++; // skip spaces
+        }
+    }
+
+    // Output
+    printf("\nIdentifiers: ");
+    for (i = 0; i < id; i++)
+        printf("%c ", identifiers[i]);
+
+    printf("\nConstants: ");
+    for (i = 0; i < con; i++)
+        printf("%d ", constants[i]);
+
+    printf("\nOperators: ");
+    for (i = 0; i < op; i++)
+        printf("%c ", operators[i]);
+
+    return 0;
+}
