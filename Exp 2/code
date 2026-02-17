@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char line[200];
+    int isMultiLine = 0;
+
+    printf("Enter comment:\n");
+
+    // Read first line
+    fgets(line, sizeof(line), stdin);
+
+    // Single-line comment
+    if (line[0] == '/' && line[1] == '/')
+    {
+        printf("It is a single line comment");
+    }
+    // Multi-line comment start
+    else if (line[0] == '/' && line[1] == '*')
+    {
+        isMultiLine = 1;
+
+        // Check if it ends in the same line
+        if (strstr(line, "*/") != NULL)
+        {
+            printf("It is a multi line comment");
+            return 0;
+        }
+
+        // Read remaining lines until end of comment
+        while (isMultiLine)
+        {
+            fgets(line, sizeof(line), stdin);
+
+            if (strstr(line, "*/") != NULL)
+            {
+                printf("It is a multi line comment");
+                isMultiLine = 0;
+            }
+        }
+    }
+    else
+    {
+        printf("It is not a comment");
+    }
+
+    return 0;
+}
