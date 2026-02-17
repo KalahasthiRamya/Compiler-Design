@@ -1,0 +1,43 @@
+%{
+#include <stdio.h>
+
+int count = 0;
+FILE *yyin, *yyout;
+%}
+
+%%
+"//".*              { count++; }          /* single-line comment */
+"/*"([^*]|\*+[^*/])*\*+"/"   { count++; } /* multi-line comment */
+.|\n                { fprintf(yyout, "%s", yytext); }
+%%
+
+int yywrap(void)
+{
+    return 1;
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc != 3)
+    {
+        printf("usage : %s input_file.c output_file.c\n", argv[0]);
+        return 1;
+    }
+
+    yyin = fopen(argv[1], "r");
+    yyout = fopen(argv[2], "w");
+
+    if (yyin == NULL || yyout == NULL)
+    {
+        printf("File error\n");
+        return 1;
+    }
+
+    yylex();
+
+    printf("number of comments are = %d\n", count);
+
+    fclose(yyin);
+    fclose(yyout);
+    return 0;
+}
